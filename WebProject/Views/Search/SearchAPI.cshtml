@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "API";
+    ViewData["Search"] = "MovieReturn";
+    
+} 
+@model WebProject.Models.RootObject
+
+
+
+
+
+@Html.Partial("_Search")
+
+<hr />
+<h4">@ViewBag.SearchString</h4>
+
+<br />
+@{
+        if (!(bool)ViewBag.noResults)
+        {
+            <table class ="table table-hover table-condensed">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">    </th> 
+                        <th scope="col">ID</th> 
+                        <th scope="col">Title</th> 
+                        <th scope="col">Released</th> 
+                        <th scope="col">Type</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var a in Model.Search)
+                        {
+                        <tr>
+                                <td><img src="@a?.Poster" style="float:left;width:70px;height:85px;"/></td>
+                                <td>@a?.imdbID</td>
+                                <td>@a?.Title</td>
+                                <td>@a?.Year</td>
+                                <td>@a?.Type</td>
+                        </tr>
+                        }
+                </tbody>
+            </table>
+        }
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
